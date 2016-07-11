@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+    <head>
+        <title> Menu </title>
+        <meat charset = 'utf-8'>
+          <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+          <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+
+          <style>
+          th { text-align: center; }
+          div.menus {
+            text-align: center;
+            padding: 40px 15px;
+          }
+
+
+
+
+
+          </style>
+      </head>
+      <body>
+        <!--
+css版型設定
+-->
+          <nav class="navbar navbar-inverse navbar-fixed-top"
+          role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button"
+              class="navbar-toggle collapsed"
+              data-toggle="collapse" data-target="#navbar"
+              aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">Sprite&Aiko kitchen</a>
+            </div>
+          </div>
+        </nav>
+
+
+
+        <!--
+    資料讀取主體
+        -->
+<div class="container">
+  <div class="menus">
+    <p>
+        {% for r in restaurants %}
+        <h2>{{ r.name }}的Menu</h2>
+       {% if r.food_set.all %}
+       <p>本餐廳共有{{ r.food_set.all|length }}道菜</p>
+       <table class="table">
+           <tr>
+               <th>菜名</th>
+               <th>價格</th>
+               <th>註解</th>
+               <th>辣不辣</th>
+
+           </tr>
+           {% for food in r.food_set.all %}
+           <tr>
+               <td> {{ food.name }} </td>
+               <td> {{ food.price }} </td>
+               <td> {{ food.comment }} </td>
+               <td>{% if food.is_spicy %} 不辣 {% else %}
+                                           辣 {% endif %} </td>
+           </tr>
+           {% endfor %}
+       </table>
+    </p>
+       {% else %}
+       <p>本餐廳啥都沒賣</p>
+       {% endif %}
+       {% endfor %}
+    </div>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+      </body>
+</html>

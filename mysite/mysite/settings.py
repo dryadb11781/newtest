@@ -53,7 +53,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app'
+    'app',
+    'restaurants',#安裝restaurants應用
 ]
 
 MIDDLEWARE_CLASSES = [
