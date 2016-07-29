@@ -16,8 +16,8 @@ Including another URLconf
 from django.conf.urls import url, include, patterns
 from django.contrib import admin
 admin.autodiscover()
-from app.views import here,math
-from restaurants.views import menu
+from app.views import math, welcome
+from restaurants.views import menu, meta, list_restaurants, comment
 
 
 urlpatterns = [
@@ -25,5 +25,9 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     #url(r'^here/', here),
     #url(r'^(\d{1,2})/math/(\d{1,2})/', math),
-    url(r'^menu/', menu),
+    url(r'^menu/(\d{1,5})/', menu),
+    url(r'^meta/', meta),
+    url(r'^welcome/', welcome),
+    url(r'^restaurants_list/', list_restaurants),
+    url(r'^comment/(\d{1,5})/', comment),
 ]

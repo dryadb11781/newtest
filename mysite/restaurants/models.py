@@ -23,6 +23,14 @@ class Food(models.Model):
 class Meta:
     ordering = ['price']
 
+class Comment(models.Model):
+    content = models.CharField(max_length=255)
+    visitor = models.CharField(max_length=255)
+    email = models.CharField(max_length=255)
+    date_time = models.DateTimeField()
+    restaurant = models.ForeignKey(Restaurant)
+    def __str__(self):
+        return self.content
 #from restaurants.models import Restaurant, Food
 #創物件方法1
 #r1 = Restaurant(name='雪碧餐廳', phone_number='02-6666666', address='天龍國天龍區天龍路100號')
