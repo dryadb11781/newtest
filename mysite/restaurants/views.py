@@ -5,6 +5,7 @@ from restaurants.models import Restaurant, Food,Comment
 from django.http import HttpResponseRedirect, HttpResponse
 from django.utils import timezone
 from django.template import RequestContext
+from restaurants.forms import CommentForm
 # Create your views here.
 def menu(request,id):
     if id:
@@ -26,20 +27,26 @@ def list_restaurants(request):
     return render_to_response('restaurants_list.html',locals())
 
 def comment(request, restaurant_id):
-    
+
     if restaurant_id:
         r = Restaurant.objects.get(id=restaurant_id)
     else:
         return HttpResponseRedirect("/restaurants_list/")
+
     if request.POST:
-        visitor = request.POST['visitor']
-        content = request.POST['content']
-        email = request.POST['email']
-        date_time = timezone.localtime(timezone.now())
-        Comment.objects.create(
-            visitor=visitor, email=email,
-            content=content,
-            date_time=date_time,
-            restaurant=r
-        )
+        f = CommentForm(request.POST)
+        if f.is_valid():
+            visitor = f.cleaned_data['visitor']
+            content = f.cleaned_data['content']
+            email = f.cleaned_data['email']
+            date_time = timezone.localtime(timezone.now())
+            c = Comment.objects.create(
+                visitor=visitor, email=email,
+                content=content,
+                date_time=date_time,
+                restaurant=r
+                )
+            f = CommentForm()
+    else:
+        f = CommentForm()
     return render_to_response('comments.html', RequestContext(request, locals()))
