@@ -5,6 +5,7 @@ from django import template
 from django.shortcuts import render_to_response
 from django.shortcuts import render
 from django.template import RequestContext
+from django.contrib import auth
 
 
 def here(request):
@@ -37,15 +38,17 @@ def get_cookie(request):
 def login(request):
     if request.user.is_authenticated():
         return HttpResponseRedirect('/index/')
-        username = request.POST.get('username', '')
-        password = request.POST.get('password', '')
+    username = request.POST.get('username', '')
+    password = request.POST.get('password', '')
 
-        user = auth.authenticate(username=username, password=password)
-        if user is not None and user.is_active:
-            auth.login(request, user)
-            return HttpResponseRedirect('/index/')
-        else:
-            return render_to_response('login.html',RequestContext(request, locals()))
+    user = auth.authenticate(username=username, password=password)
+    if user is not None and user.is_active:
+        auth.login(request, user)
+        return HttpResponseRedirect('/index/')
+    else:
+        return render_to_response('login.html',RequestContext(request, locals()))
+
+
 
 def index(request):
     """index page
@@ -53,3 +56,7 @@ def index(request):
     :returns: index webpage
     """
     return render_to_response('index.html', RequestContext(request, locals()))
+
+def logout(request):
+    auth.logout(request)
+    return HttpResponseRedirect('/index/')

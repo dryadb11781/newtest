@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include, patterns
 from django.contrib import admin
 admin.autodiscover()
-from app.views import math, welcome, set_cookie, get_cookie, login, index
+from app.views import math, welcome, set_cookie, get_cookie, login, index, logout
 from restaurants.views import menu, meta, list_restaurants, comment
 
 
@@ -34,4 +34,5 @@ urlpatterns = [
     url(r'^get_c/', get_cookie),
     url(r'^index/', index),
     url(r'^login/', login),
+    url(r'^logout/', logout),
 ]

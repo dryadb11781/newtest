@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.utils import timezone
 from django.template import RequestContext
 from restaurants.forms import CommentForm
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 def menu(request,id):
     if id:
@@ -22,6 +23,8 @@ def meta(request):
     for k, v in values:
         html.append('<tr><td>{0}</td><td>{1}</td></tr>'.format(k, v))
         return HttpResponse('<table>{0}</table>'.format('\n'.join(html)))
+
+@login_required
 def list_restaurants(request):
     restaurants = Restaurant.objects.all()
     return render_to_response('restaurants_list.html',locals())
