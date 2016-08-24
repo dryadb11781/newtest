@@ -24,10 +24,13 @@ def meta(request):
         html.append('<tr><td>{0}</td><td>{1}</td></tr>'.format(k, v))
         return HttpResponse('<table>{0}</table>'.format('\n'.join(html)))
 
-@login_required
+#@login_required
 def list_restaurants(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/index/')
     restaurants = Restaurant.objects.all()
-    return render_to_response('restaurants_list.html',locals())
+    return render_to_response('restaurants_list.html',RequestContext(request,locals()))
+
 
 def comment(request, restaurant_id):
 

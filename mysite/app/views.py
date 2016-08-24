@@ -6,6 +6,7 @@ from django.shortcuts import render_to_response
 from django.shortcuts import render
 from django.template import RequestContext
 from django.contrib import auth
+from django.contrib.auth.forms import UserCreationForm
 
 
 def here(request):
@@ -60,3 +61,12 @@ def index(request):
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect('/index/')
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            return HttpResponseRedirect('/login/')
+    else:
+        form =UserCreationForm()
+    return render_to_response('register.html', RequestContext(request, locals()))

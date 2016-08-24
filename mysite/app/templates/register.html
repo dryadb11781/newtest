@@ -49,46 +49,29 @@ css版型設定
     資料讀取主體
     <td> <input type ="radio" name="id" value="{{r.id}}"> </td>
         -->
-<div class="container">
-  <div class="menus">
-    <p>
+         <p>　</p>
+        <p>　</p>
+          <p>　</p>
+<div class="container" >
 
 
-        <h2>餐廳列表</h2>
-<form action="/menu/" method="get">
-       <table class="table">
-           <tr>
-              <th>選取</th>
-               <th>店名</th>
-               <th>電話</th>
-               <th>地址</th>
-               {% if perms.restaurants.can_comment %}
-               <th>評價</th>
-               {% endif %}
 
-           </tr>
-           {% for r in restaurants %}
-           <tr>
-               <td> <a href="/menu/{{r.id}}/">menu</a> </td>
-               <td> {{ r.name }} </td>
-               <td> {{ r.phone_number }} </td>
-               <td> {{ r.address }} </td>
-               {% if perms.restaurants.can_comment %}
-               <td> <a href="/comment/{{r.id}}">評論</a></td>
-               {% endif %}
-           </tr>
-           {% endfor %}
-       </table>
+        <h1>註冊新帳號</h1>
+<form action="" method="post"> {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="註冊">
+
+
 
        <!--
       <input type="submit" value="觀看menu"> 選單式menu輸出鈕
        -->
 
      </form>
-    </p>
+
 
     </div>
-  </div>
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
       </body>

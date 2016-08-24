@@ -31,6 +31,12 @@ class Comment(models.Model):
     restaurant = models.ForeignKey(Restaurant)
     def __str__(self):
         return self.content
+    class Meta:
+        ordering = ['date_time']
+        permissions = (
+            ("can_comment", "Can_comment"),
+
+        )
 #from restaurants.models import Restaurant, Food
 #創物件方法1
 #r1 = Restaurant(name='雪碧餐廳', phone_number='02-6666666', address='天龍國天龍區天龍路100號')

@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app',
     'restaurants',#安裝restaurants應用
+
 ]
 
 MIDDLEWARE_CLASSES = [
